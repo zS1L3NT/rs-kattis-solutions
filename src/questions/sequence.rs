@@ -6,29 +6,26 @@ pub fn main() {
     stdin().read_line(&mut input).unwrap();
     println!(
         "{}",
-        get_possible_variations(input.trim().to_string())
-            .iter()
-            .map(|variation| count_iterations(&mut variation.to_string()))
-            .sum::<usize>()
-            % 1000000007
+        get_possible_variations(&input.trim().chars().collect::<Vec<_>>())
     );
 }
 
-fn get_possible_variations(string: String) -> Vec<String> {
-    match string.find(|char| char == '?') {
-        Some(_) => [
-            get_possible_variations(string.replacen("?", "0", 1)),
-            get_possible_variations(string.replacen("?", "1", 1)),
-        ]
-        .concat(),
-        None => vec![string],
+fn get_possible_variations(chars: &Vec<char>) -> usize {
+    match chars.iter().position(|char| char == &'?') {
+        Some(index) => {
+            let mut vec0 = chars.clone();
+            let mut vec1 = chars.clone();
+            vec0[index] = '0';
+            vec1[index] = '1';
+            (get_possible_variations(&vec0) + get_possible_variations(&vec1)) % 1000000007
+        }
+        None => count_iterations(chars) % 1000000007,
     }
 }
 
-fn count_iterations(string: &mut String) -> usize {
+fn count_iterations(chars: &Vec<char>) -> usize {
     let mut finished = 0;
     let mut moves = 0;
-    let chars = string.chars().collect::<Vec<_>>();
     let len = chars.len();
 
     for i in 0..len {
