@@ -1,3 +1,5 @@
 mod questions;
 
-fn main() {}
+fn main() {
+    questions::sequence::main();
+}
