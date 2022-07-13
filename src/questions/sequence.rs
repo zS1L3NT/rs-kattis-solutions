@@ -1,12 +1,16 @@
-use std::io::{stdin, stdout, Write};
-
-pub fn main() {
+fn get_input() -> String {
     let mut input = String::new();
-    stdout().flush().unwrap();
-    stdin().read_line(&mut input).unwrap();
+    std::io::stdin()
+        .read_line(&mut input)
+        .expect("failed to read input");
+    input.trim().to_string()
+}
+
+#[allow(dead_code)]
+pub fn main() {
     println!(
         "{}",
-        get_possible_variations(&input.trim().chars().collect::<Vec<_>>())
+        get_possible_variations(&get_input().chars().collect::<Vec<_>>())
     );
 }
 
