@@ -17,7 +17,7 @@ pub fn main() {
                     .map(|x| x.parse::<i32>().unwrap())
                     .collect::<Vec<i32>>();
                 let students = data[0] as f32;
-                let results = data.iter().skip(1).map(|i| *i).collect::<Vec<i32>>();
+                let results = data.iter().skip(1).copied().collect::<Vec<i32>>();
                 let average = (results.iter().sum::<i32>() as f32) / students;
                 let above_average =
                     results.iter().filter(|i| (**i) as f32 > average).count() as f32;

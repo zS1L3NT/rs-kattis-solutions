@@ -41,14 +41,14 @@ impl Location {
         }
     }
 
-    fn get_val<'a, T>(&self, map: &'a Vec<Vec<T>>) -> &'a T {
+    fn get_val<'a, T>(&self, map: &'a [Vec<T>]) -> &'a T {
         map.get(self.0 as usize - 1)
             .unwrap()
             .get(self.1 as usize - 1)
             .unwrap()
     }
 
-    fn get_mut_val<'a, T>(&self, map: &'a mut Vec<Vec<T>>) -> &'a mut T {
+    fn get_mut_val<'a, T>(&self, map: &'a mut [Vec<T>]) -> &'a mut T {
         map.get_mut(self.0 as usize - 1)
             .unwrap()
             .get_mut(self.1 as usize - 1)
@@ -66,8 +66,8 @@ fn get_input() -> String {
 
 fn group(
     group_id: i32,
-    groups: &mut Vec<Vec<i32>>,
-    map: &Vec<Vec<i8>>,
+    groups: &mut [Vec<i32>],
+    map: &[Vec<i8>],
     r: usize,
     c: usize,
     curr_loc: Location,

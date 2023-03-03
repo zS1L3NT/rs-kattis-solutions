@@ -23,7 +23,7 @@ pub fn main() {
     // Don't even ask me about this code
     // I compressed most of it and now it looks like shit
     let board: Vec<Vec<i32>> = match direction {
-        0 => board.iter().map(|row| resolve_row(row)).collect(),
+        0 => board.iter().map(resolve_row).collect(),
         1 => (0..4)
             .map(|ri| {
                 (0..4)
@@ -34,10 +34,10 @@ pub fn main() {
         2 => board
             .iter()
             .map(|row| {
-                resolve_row(&row.iter().rev().map(|ci| *ci).collect())
+                resolve_row(&row.iter().rev().copied().collect())
                     .iter()
                     .rev()
-                    .map(|i| *i)
+                    .copied()
                     .collect()
             })
             .collect(),
@@ -112,11 +112,9 @@ fn resolve_row(line: &Vec<i32>) -> Vec<i32> {
         let mut line = line
             .iter()
             .filter(|i| **i != 0)
-            .map(|i| *i)
+            .copied()
             .collect::<Vec<_>>();
-        for _ in 0..(4 - line.len()) {
-            line.push(0);
-        }
+        line.resize(4, 0);
         line
     }
 }
