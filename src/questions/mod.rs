@@ -1,6 +1,7 @@
 pub mod _10kindsofpeople;
 pub mod _1dfroggereasy;
 pub mod _2048;
+pub mod _3dprinter;
 pub mod _99problems;
 pub mod aaah;
 pub mod abc;
